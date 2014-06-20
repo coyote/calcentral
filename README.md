@@ -103,6 +103,35 @@ http://www.oracle.com/technetwork/java/javase/downloads/index.html
     ``` bash
     export JRUBY_OPTS="-Xcext.enabled=true -X-C -J-Xms900m -J-Xmx1200m -J-XX:MaxPermSize=500m --headless -J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=1 -J-Xcompile.invokedynamic=false -J-XX:+UseConcMarkSweepGC"
     ```
+    
+1.  Use Theine to accelerate the loading of rails:
+    
+    [Theine](https://github.com/mrbrdo/theine) works to keep a Rails process loaded, so that various tasks (rake, rails c, rails s, rspec etc.) will start considerably faster. It is not added the Gemfile, but should be available in the development directory.  The following results are showing for using it will CalCentral:
+    
+    running: 
+    ```bash
+    time rails r 'puts "Hello World"'
+    ```
+    (server output snipped, logs and the command result)
+    
+    gave the times:
+    ```bash
+    real 0m39.580s
+    user 1m0.705s
+    sys 0m3.682s
+    ```
+    And running:
+    ```bash
+    time theine r puts 'puts "Hello Word"'
+    ```
+    
+    gave the following very much shorter run time:
+    
+    ```bash
+    real 0m7.531s
+    user 0m10.588s
+    sys 0m0.319s
+    ```
 
 1. Download and install xvfb. On a Mac, you get xvfb by [installing XQuartz](http://xquartz.macosforge.org/landing/).
 
